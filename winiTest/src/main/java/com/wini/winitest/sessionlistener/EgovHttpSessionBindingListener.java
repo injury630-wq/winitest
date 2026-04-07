@@ -25,6 +25,8 @@ public class EgovHttpSessionBindingListener implements HttpSessionBindingListene
 	 * */
 	@Override
 	public void valueBound(HttpSessionBindingEvent event) {
+		// event.getName() = userId (setAttribute의 key값)
+		// 이미 같은 userId로 로그인된 세션이 있는지 확인
 		if (EgovMultiLoginPreventor.findByLoginId(event.getName())) {
 			EgovMultiLoginPreventor.invalidateByLoginId(event.getName());
 		}

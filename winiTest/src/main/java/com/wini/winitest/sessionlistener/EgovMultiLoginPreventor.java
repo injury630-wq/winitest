@@ -33,7 +33,6 @@ public class EgovMultiLoginPreventor {
 	 * */
 	public static void invalidateByLoginId(String loginId) {
 		Enumeration<String> e = loginUsers.keys();
-		System.out.println("로그인 세션 검색 시작...");
 		while (e.hasMoreElements()) {
 			String key = e.nextElement();
 			System.out.println("세션: " +key);

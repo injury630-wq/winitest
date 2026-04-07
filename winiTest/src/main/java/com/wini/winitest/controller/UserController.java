@@ -36,7 +36,7 @@ public class UserController {
 
 	// 일반 로그인 처리 (session)
 	// @RequestMapping(value = "/user/login.do", method = RequestMethod.POST)
-	// public String login(@ModelAttribute UserVO userVO, HttpSession session)
+	// public String login(@ModelAttribute UserVO userVO, HttpSession session) //Spring이 세션을 주입해줌
 	// throws Exception {
 	// UserVO loginUser = userService.login(userVO);
 	// if(loginUser != null) {
@@ -54,6 +54,7 @@ public class UserController {
 		if (resultVO != null && resultVO.getUserId() != null) {
 			request.getSession().setAttribute("loginUser", resultVO);
 			EgovHttpSessionBindingListener listener = new EgovHttpSessionBindingListener();
+			// 세션에 userId로 listener 바인딩 이 순간 valueBound() 자동 호출
 			request.getSession().setAttribute(resultVO.getUserId(), listener);
 
 			return "redirect:/board/list.do";
