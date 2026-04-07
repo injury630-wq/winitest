@@ -202,8 +202,10 @@ th:last-child, td:last-child {
 </style>
 </head>
 <body>
-	<div class="container">
-		<a style="float: right;" href = "user/logout.do">로그아웃</a>
+	<div class="container"> 
+		<form action="user/logout.do" method="post">
+			<button style="float: right;">로그아웃</button>
+		</form>
 		<h2><a href="board/list.do" style="text-decoration: none; color: inherit">게시판 목록</a></h2>
 		<!-- 검색 영역 -->
 		<form action="board/list.do" method="get">
@@ -312,6 +314,5 @@ th:last-child, td:last-child {
 	</div>
 </body>
 <script>
-	
 </script>
 </html>

@@ -226,10 +226,10 @@ input[type=text], input[type=password] {
 			let input = document.querySelector("#" + id);
 			if (input.type === "password") {
 				input.type = "text";
-				btn.innerText = "숨김";
+				btn.innerText = "표시";
 			} else {
 				input.type = "password";
-				btn.innerText = "표시";
+				btn.innerText = "숨김";
 			}
 		}
 

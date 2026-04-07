@@ -49,6 +49,7 @@ public class UserController {
 	// 중복 로그인 처리 (requestsession)
 	@RequestMapping(value = "/user/login.do", method = RequestMethod.POST)
 	public String login(@ModelAttribute UserVO userVO, HttpServletRequest request, ModelMap model) throws Exception {
+		System.out.println("로그인 요청..");
 		UserVO resultVO = userService.login(userVO);
 		if (resultVO != null && resultVO.getUserId() != null) {
 			request.getSession().setAttribute("loginUser", resultVO);
@@ -59,17 +60,12 @@ public class UserController {
 		} else {
 			return "redirect:/user/login.do?error=1";
 		}
-		// UserVO loginUser = userService.login(userVO);
-		// if(loginUser != null) {
-		// session.setAttribute("loginUser", loginUser);
-		// return "redirect:/board/list.do";
-		// }
-		// return "redirect:/user/login.do?error=1";
 	}
 
 	// 중복로그인 로그아웃
 	@RequestMapping(value = "/user/logout.do", method = RequestMethod.POST)
 	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
+		System.out.println("로그아웃 요청...");
 		try {
 			RequestContextHolder.getRequestAttributes().removeAttribute("loginUser", RequestAttributes.SCOPE_SESSION);
 
