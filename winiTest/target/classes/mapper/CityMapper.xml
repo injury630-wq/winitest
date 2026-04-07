@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wini.winitest.mapper.CityMapper">
+	<resultMap id="cityResultMap"
+		type="com.wini.winitest.vo.CityVO">
+		<id property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="countryCode" column="CountryCode" />
+		<result property="district" column="District" />
+		<result property="population" column="Population" />
+	</resultMap>
+
+	<select id="getCityList" resultMap="cityResultMap">
+		SELECT * FROM city
+	</select>
+</mapper>
