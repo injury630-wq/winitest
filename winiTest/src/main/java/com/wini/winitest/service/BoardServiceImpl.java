@@ -106,8 +106,8 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public int deleteBoard(int boardNo) throws Exception {
-        boardMapper.deleteBoardFileAll(boardNo); // 파일 먼저 삭제
-        return boardMapper.deleteBoard(boardNo); // 게시글 삭제
+        boardMapper.deleteBoardFileAll(boardNo); // 파일 DB 먼저 삭제
+        return boardMapper.deleteBoard(boardNo); // 게시글 DB 삭제
     }
 
     // 답변글 등록 (파일 포함)
@@ -139,4 +139,10 @@ public class BoardServiceImpl implements BoardService {
     public int deleteBoardFile(int fileNo) throws Exception {
         return boardMapper.deleteBoardFile(fileNo);
     }
+
+	@Override
+	public List<BoardFileVO> deleteBoard2(int boardNo) throws Exception {
+		// 실제 파일 삭제를 위한 방식
+		return null;
+	}
 }

@@ -35,7 +35,6 @@ public class EgovMultiLoginPreventor {
 		Enumeration<String> e = loginUsers.keys();
 		while (e.hasMoreElements()) {
 			String key = e.nextElement();
-			System.out.println("세션: " +key);
 			if (key.equals(loginId)) {
 				loginUsers.get(key).invalidate();
 			}

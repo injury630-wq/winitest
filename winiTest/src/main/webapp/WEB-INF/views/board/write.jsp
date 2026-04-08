@@ -40,6 +40,8 @@
 <div class="container">
     <h2>게시판 등록</h2>
     <form action="board/write.do" method="post" encType="multipart/form-data">
+    	<input type="text" name="searchKeyword" value="${searchVO.searchKeyword}">
+    	<input type="text" name="searchType" value="${searchVO.searchType}">
         <table>
             <tr>
                 <th><span class="required">*</span>작성자</th>
