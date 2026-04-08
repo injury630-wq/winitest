@@ -254,7 +254,7 @@ th:last-child, td:last-child {
 								<!--번호 = 전체 게시물 개수 - (현재 페이지 * 페이지당 게시물 개수) - 나열 인덱스 https://mag1c.tistory.com/132 -->
 								<td>${searchVO.totalCount - (searchVO.currentPage - 1) * searchVO.pageSize - status.index}</td>
 								<td class="title"><a
-									href="board/detail.do?boardNo=${board.boardNo}"
+									href="board/detail.do?boardNo=${board.boardNo}&searchType=${searchVO.searchType}&searchKeyword=${searchVO.searchKeyword}"
 									class="re-lev${board.reLev}"> <c:if test="${board.reLev > 0}">ㄴ</c:if> ${board.title}
 								</a></td>
 								<td>${board.writerId}</td>
@@ -309,7 +309,7 @@ th:last-child, td:last-child {
 
 		<!-- 버튼 영역 -->
 		<div class="btn-area">
-			<a href="board/write.do" class="btn-write">글쓰기</a>
+			<a href="board/write.do?searchType=${searchVO.searchType}&searchKeyword=${searchVO.searchKeyword}" class="btn-write">글쓰기</a>
 		</div>
 	</div>
 </body>

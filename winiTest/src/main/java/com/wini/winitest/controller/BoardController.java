@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wini.winitest.service.BoardService;
 import com.wini.winitest.vo.BoardFileVO;
@@ -45,7 +44,8 @@ public class BoardController {
 
     // 게시글 등록 페이지
     @RequestMapping(value = "/board/write.do", method = RequestMethod.GET)
-    public String writeView(HttpSession session) throws Exception {
+    public String writeView(@ModelAttribute SearchVO searchVO, Model model) throws Exception {
+    	model.addAttribute("searchVO", searchVO);
         return "board/write";
     }
 
@@ -53,10 +53,14 @@ public class BoardController {
     @RequestMapping(value = "/board/write.do", method = RequestMethod.POST)
     public String write(@ModelAttribute BoardVO boardVO,
                         @RequestParam(value="uploadFile", required=false) List<MultipartFile> files,
-                        HttpSession session) throws Exception {
+                        HttpSession session
+                        , @ModelAttribute SearchVO searchVO
+                        , RedirectAttributes rttr) throws Exception {
         UserVO loginUser = (UserVO) session.getAttribute("loginUser");
         boardVO.setWriterId(loginUser.getUserId());
         boardService.insertBoard(boardVO, files);
+        rttr.addAttribute("searchKeyword", searchVO.getSearchKeyword());
+        rttr.addAttribute("searchType", searchVO.getSearchType());
         return "redirect:/board/list.do";
     }
 
@@ -73,14 +77,14 @@ public class BoardController {
     // 게시글 수정 페이지
     @RequestMapping(value = "/board/edit.do", method = RequestMethod.POST)
     public String editView(@ModelAttribute BoardVO boardVO, Model model) throws Exception {
-    	int boardNo = boardVO.getBoardNo(); 
+    	int boardNo = boardVO.getBoardNo();
     	BoardVO board = boardService.getBoardDetail(boardNo);
     	if(board.getWriterPw().equals(boardVO.getWriterPw())) {
     		model.addAttribute("board", board);
     		model.addAttribute("fileList", boardService.getBoardFileList(boardNo));
             return "/board/edit";
         } else {
-            return "redirect:/board/detail.do?boardNo=" + boardNo + "&pwError=1";
+            return "/board/detail.do?boardNo=" + boardNo + "&pwError=1";
         }
     }
 
